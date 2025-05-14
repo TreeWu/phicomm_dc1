@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build Base Images') {
+            steps {
+                dir('kratos-server') {
+                    sh "docker build -t dc1base:latest -f dc1base.Dockerfile ."
+                }
+            }
+        }
+        stage('Build Dc1server Images') {
+            steps {
+                dir('kratos-server') {
+                    sh "docker build -t dc1server:latest -f dc1server.Dockerfile ."
+                }
+            }
+        }
+        stage('Build gateway Images') {
+            steps {
+                dir('kratos-server') {
+                    sh "docker build -t gateway:latest -f gateway.Dockerfile ."
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ 构建成功"
+        }
+        failure {
+            echo "❌ 构建失败"
+        }
+    }
+}

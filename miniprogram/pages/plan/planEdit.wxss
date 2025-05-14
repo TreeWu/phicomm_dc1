@@ -1,0 +1,52 @@
+
+.picker {
+  flex: 1;
+}
+
+.picker-text {
+  font-size: 30rpx;
+}
+
+.week-container {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.week-item {
+  width: 80rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  margin: 0 10rpx 10rpx 0;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  font-size: 28rpx;
+}
+
+.week-item.active {
+  background-color: #07c160;
+  color: #fff;
+}
+
+.devices {
+  background-color: #fff;
+  padding: 25rpx 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+  align-items: center;
+}
+.plan-switch {
+  padding: 5rpx 30rpx !important;
+}
+.weui-cells__title {
+  margin-top: 5rpx !important;
+  padding-left: 30rpx !important;
+}
+
+.btn-save{
+  margin-bottom: 15rpx;
+}
+.btn-save:last-child{
+  margin-bottom: 60rpx;
+}

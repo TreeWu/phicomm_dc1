@@ -1,0 +1,120 @@
+<view class="container">
+    <form bindsubmit="savePlan">
+        <!-- 计划名称 -->
+        <view class="form-item">
+            <text class="label">计划名称</text>
+            <input class="input" name="name" value="{{plan.name}}" placeholder="请输入计划名称"/>
+        </view>
+
+        <!-- 计划类型 -->
+        <view class="form-item">
+            <text class="label">计划类型</text>
+            <picker class="picker" name="planType" range="{{typeOptions}}" range-key="name" value="{{typeIndex}}" bindchange="typeChange">
+                <view class="picker-text">{{typeOptions[typeIndex].name}}</view>
+            </picker>
+        </view>
+        <view class="form-item" wx:if="{{plan.planType == 'PLAN_TYPE_AUTO'}}">
+            <text class="label">重复模式</text>
+            <picker class="picker" name="repeatMode" range="{{repeatOptions}}" range-key="name" value="{{repeatIndex}}" bindchange="repeatChange">
+                <view class="picker-text">{{repeatOptions[repeatIndex].name}}</view>
+            </picker>
+        </view>
+        <view class="form-item" wx:if="{{plan.planType == 'PLAN_TYPE_AUTO' && repeatIndex !=3}}">
+            <text class="label">执行时间</text>
+            <picker mode="multiSelector" bindchange="bindMultiPickerChange" value="{{timeIndex}}" range="{{timeArray}}">
+                <view class="picker">
+                    {{timeArray[0][timeIndex[0]]}}:{{timeArray[1][timeIndex[1]]}}:{{timeArray[2][timeIndex[2]]}}
+                </view>
+            </picker>
+        </view>
+        <view class="form-item" wx:if="{{repeatIndex == 2 && plan.planType == 'PLAN_TYPE_AUTO'}}">
+            <text class="label">选择星期</text>
+            <view class="week-container">
+                <view wx:for="{{weekDays}}" wx:key="value" class="week-item {{item.selected ? 'active' : ''}}" data-index="{{index}}" bindtap="toggleWeekDay">
+                    {{item.name}}
+                </view>
+            </view>
+        </view>
+        <view class="form-item" wx:if="{{repeatIndex ==0 && plan.planType == 'PLAN_TYPE_AUTO'}}">
+            <text class="label">选择日期</text>
+            <picker class="picker" mode="date" name="specificDate" fields="day" value="{{specificDate}}" bindchange="dateChange">
+                <view class="picker-text">{{specificDate}}</view>
+            </picker>
+        </view>
+        <view class="form-item" wx:if="{{plan.planType == 'PLAN_TYPE_AUTO'}}">
+            <text class="label">CRON</text>
+            <input class="input" disabled="{{repeatIndex != 3}}" name="cronExpression" value="{{cronExpression}}"/>
+        </view>
+
+        <!-- 选择设备 -->
+        <view class="form-item">
+            <text class="label">设备控制</text>
+            <button type="primary" size="mini" bind:tap="addDevcie">增加设备</button>
+        </view>
+
+        <view class="devices weui-cells__group weui-cells__group_form" wx:for="{{devices}}" wx:key="deviceId">
+
+            <checkbox-group bindchange="switchSelChange" data-device-id="{{item.deviceId}}">
+                <view class="weui-cells">
+
+                    <view class="weui-cell weui-cell_switch plan-switch">
+                        <view class="weui-cell__bd">{{deviceMap[item.deviceId].name}}</view>
+                        <view class="weui-cell__ft">
+                            <button type="warn" size="mini" bind:tap="delDevice" data-device-id="{{item.deviceId}}">移除</button>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_switch plan-switch">
+                        <view class="weui-cell__hd">
+                            <checkbox value="switchMainSel" checked="{{item.switchMainSel}}"/>
+                        </view>
+                        <view class="weui-cell__bd">
+                            总开关
+                        </view>
+                        <view class="weui-cell__ft">
+                            <switch checked="{{item.switchMain}}" bindchange="switchChange" data-device-id="{{item.deviceId}}" data-switch-key="switchMain"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_switch plan-switch">
+                        <view class="weui-cell__hd">
+                            <checkbox value="switch1Sel" checked="{{item.switch1Sel}}"/>
+                        </view>
+                        <view class="weui-cell__bd">
+                            {{deviceMap[item.deviceId].switch1Name||"开关1"}}
+                        </view>
+                        <view class="weui-cell__ft">
+                            <switch checked="{{item.switch1}}" bindchange="switchChange" data-device-id="{{item.deviceId}}" data-switch-key="switch1"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_switch plan-switch">
+                        <view class="weui-cell__hd">
+                            <checkbox value="switch2Sel" checked="{{item.switch2Sel}}"/>
+                        </view>
+                        <view class="weui-cell__bd">
+                            {{deviceMap[item.deviceId].switch2Name||"开关2"}}
+                        </view>
+                        <view class="weui-cell__ft">
+                            <switch checked="{{item.switch2}}" bindchange="switchChange" data-device-id="{{item.deviceId}}" data-switch-key="switch2"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_switch plan-switch">
+                        <view class="weui-cell__hd">
+                            <checkbox value="switch3Sel" checked="{{item.switch3Sel}}"/>
+                        </view>
+                        <view class="weui-cell__bd">
+                            {{deviceMap[item.deviceId].switch3Name||"开关3"}}
+                        </view>
+                        <view class="weui-cell__ft">
+                            <switch checked="{{item.switch3}}" bindchange="switchChange" data-device-id="{{item.deviceId}}" data-switch-key="switch3"/>
+                        </view>
+                    </view>
+                </view>
+            </checkbox-group>
+        </view>
+
+        <!-- 保存按钮 -->
+        <button class="btn-save" formType="submit" type="primary">{{plan.id==0?'新建计划':'保存计划'}}</button>
+        <button wx:if="{{plan.id!=0}}" class="btn-save" bind:tap="delPlan" type="warn">删除计划</button>
+        <text>.</text>
+
+    </form>
+</view>

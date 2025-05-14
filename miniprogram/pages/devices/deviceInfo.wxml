@@ -1,0 +1,87 @@
+<view class="page">
+    <view class="weui-cells__group weui-cells__group_form">
+
+        <view class="weui-cells">
+            <view class=" info-title weui-cell weui-cells__title">
+                <view class="weui-cell__bd">开关控制</view>
+                <view class="weui-cell__ft">
+                    <text class="{{device.isOnline? 'device-status-online' : 'device-status-offline'}}">{{device.isOnline?'在线':'离线'}}</text>
+                    <radio checked="{{device.isOnline}}"></radio>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_switch">
+                <view class="weui-cell__bd">总开关</view>
+                <view class="weui-cell__ft">
+                    <switch bindchange="commandChange" data-switchkey="switchMain" checked="{{command.switchMain}}"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_switch">
+                <view bind:longpress="editSwitchName" data-switchname="switch1Name" class="weui-cell__bd">{{device.switch1Name||"开关1"}}</view>
+                <view class="weui-cell__ft">
+                    <switch bindchange="commandChange" data-switchkey="switch1" checked="{{command.switch1}}"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_switch">
+                <view bind:longpress="editSwitchName" data-switchname="switch2Name" class="weui-cell__bd">{{device.switch2Name|| "开关2"}}</view>
+                <view class="weui-cell__ft">
+                    <switch bindchange="commandChange" data-switchkey="switch2" checked="{{command.switch2}}"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_switch">
+                <view bind:longpress="editSwitchName" data-switchname="switch3Name" class="weui-cell__bd">{{device.switch3Name||'开关3'}}</view>
+                <view class="weui-cell__ft">
+                    <switch bindchange="commandChange" data-switchkey="switch3" checked="{{command.switch3}}"/>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="weui-cells__group weui-cells__group_form">
+        <view class="weui-cells ">
+            <view class="info-title weui-cells__title">用电信息</view>
+            <view class="weui-cell weui-cell_active weui-cell_readonly ">
+                <view class="weui-cell__hd">
+                    <label class="weui-lebel"> 当前电压:</label>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" disabled value="{{device.v}}"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_active weui-cell_readonly ">
+                <view class="weui-cell__hd">
+                    <label class="weui-lebel"> 当前电流:</label>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" disabled value="{{device.i}}"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_active weui-cell_readonly ">
+                <view class="weui-cell__hd">
+                    <label class="weui-lebel"> 当前功率:</label>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" disabled value="{{device.p}}"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_active weui-cell_readonly ">
+                <view class="weui-cell__hd">
+                    <label class="weui-lebel"> 累计用电:</label>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" disabled value="{{device.detalKwh/1000}}度"/>
+                </view>
+                <view class="weui-cell__ft">
+                    <text>详情</text>
+                </view>
+            </view>
+            <view class="weui-cell  weui-cell_switch">
+                <view class="weui-cell__bd">
+                    <label class="weui-lebel"> 断电恢复:</label>
+                </view>
+                <view class="weui-cell__ft">
+                    <switch checked="{{device.recover}}" bindchange="recoverChange"></switch>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

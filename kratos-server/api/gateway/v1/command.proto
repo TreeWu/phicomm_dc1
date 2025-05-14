@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package api.gateway.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+
+
+option go_package = "github.com/treewu/phicomm_dc1/api/gateway/v1;v1";
+
+// 命令接口
+service CommandService {
+  // 发送命令
+  rpc SendCommand (Command) returns (CommandReply){
+    option (google.api.http) = {
+      post: "/v1/command"
+      body: "*"
+    };
+  };
+
+}
+
+message Command{
+  string device_type = 1; // 设备类型
+  string device_id = 2; // 设备id
+  string command_id = 3;// 命令id
+  Dc1Command dc1 = 4; // dc1命令
+}
+message Dc1Command{
+  optional int32 switch_main = 1 [(validate.rules).int32 = {in:[0, 1]}]; // 主开关
+  optional int32 switch_1 = 2[(validate.rules).int32 = {in:[0, 1]}]; // 子开关1
+  optional int32 switch_2 = 3[(validate.rules).int32 = {in:[0, 1]}];// 子开关2
+  optional int32 switch_3 = 4[(validate.rules).int32 = {in:[0, 1]}];// 子开关3
+}
+
+message CommandReply{
+  string device_type = 1; // 设备类型
+  string device_id = 2; // 设备id
+  string command_id = 3; // 命令id
+  bool  success = 4; // 是否成功
+  string reason = 5; // 原因
+}

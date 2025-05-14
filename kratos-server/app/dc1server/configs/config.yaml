@@ -1,0 +1,25 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 30s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 30s
+  dc1:
+    network: tcp
+    addr: :8000
+    insert_not_register: true # 是否允许为配网的设备连接
+    heart_beat_interval: 30s
+    command_timeout: 10s
+data:
+  database:
+    driver: mysql
+    source: root:123456@tcp(localhost:3306)/dc1?charset=utf8&parseTime=true
+  redis:
+    addr: localhost:6379
+    password: password
+    read_timeout: 1s
+    db: 1
+    write_timeout: 1s
+  sqlite3:
+    addr: ./data.db

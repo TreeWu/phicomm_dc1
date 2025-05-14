@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/devices/devices",
+    "pages/devices/deviceInfo",
+    "pages/user/user",
+    "pages/connect/connect",
+    "pages/power/power",
+    "pages/plan/plan",
+    "pages/plan/planEdit",
+    "pages/share/share"
+  ],
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/devices/devices",
+        "text": "设备"
+      },
+      {
+        "pagePath": "pages/plan/plan",
+        "text": "计划"
+      },
+      {
+        "pagePath": "pages/connect/connect",
+        "text": "联网"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的"
+      }
+    ]
+  },
+  "window": {
+    "navigationBarTitleText": "DC1设备",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "ec-canvas": "./lib/ec-canvas/ec-canvas"
+  }
+}

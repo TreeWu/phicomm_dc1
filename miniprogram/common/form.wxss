@@ -1,0 +1,25 @@
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.form-item {
+  background-color: #fff;
+  padding: 25rpx 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  width: 180rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.input {
+  flex: 1;
+  font-size: 30rpx;
+}

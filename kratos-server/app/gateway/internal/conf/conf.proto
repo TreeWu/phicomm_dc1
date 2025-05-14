@@ -1,0 +1,65 @@
+syntax = "proto3";
+package kratos.api;
+
+option go_package = "github.com/treewu/phicomm_dc1/app/dc1server/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+}
+
+message Server {
+  message HTTP {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+
+  HTTP http = 1;
+  GRPC grpc = 2;
+}
+
+message Data {
+  message Database {
+    string driver = 1;
+    string source = 2;
+    google.protobuf.Duration slow_sql = 3;
+  }
+  message Redis {
+    string network = 1;
+    string addr = 2;
+    string  password = 3;
+    int32  db = 4;
+    google.protobuf.Duration read_timeout = 5;
+    google.protobuf.Duration write_timeout = 6;
+  }
+  message Sqlite3{
+    string addr = 1;
+  }
+  message MiniApp {
+    string app_id = 1;
+    string app_secret = 2;
+  }
+  message Wechat {
+    map<string, MiniApp> miniapps = 1;
+    string   secret_key = 2;
+    google.protobuf.Duration token_ttl = 3;
+    google.protobuf.Duration device_flush_interval = 4; //前端列表刷新时间
+    google.protobuf.Duration online_interval = 5; // 在线超时判断
+    int32 plan_count = 6; // 计划数量
+    string host = 7;
+  }
+
+  Database database = 1;
+  Redis redis = 2;
+  Sqlite3 sqlite3 = 3;
+  Wechat wechat = 4;
+}
+

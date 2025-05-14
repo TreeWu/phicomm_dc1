@@ -1,0 +1,62 @@
+<!-- pages/device-share/device-share.wxml -->
+<view class="container">
+    <!-- 标签页切换 -->
+    <view class="tabs">
+        <view class="tab {{activeTab === 'shared' ? 'active' : ''}}" bindtap="switchTab" data-tab="shared">
+            我分享的
+        </view>
+        <view class="tab {{activeTab === 'received' ? 'active' : ''}}" bindtap="switchTab" data-tab="received">
+            分享给我的
+        </view>
+    </view>
+
+    <!-- 我分享的设备列表 -->
+    <view class="list-container" wx:if="{{activeTab === 'shared'}}">
+        <block wx:for="{{sharedList}}" wx:key="id">
+            <view class="device-item">
+                <view class="device-info">
+                    <text class="device-name">{{item.deviceName}}</text>
+                    <text class="user-name">分享给: {{item.userName}}</text>
+                    <text class="status {{item.shareStatus}}">状态: {{statusMap[item.shareStatus]}}</text>
+                </view>
+                <view class="actions">
+                    <button class="btn revoke" bindtap="handleRevoke" data-id="{{item.id}}">
+                        撤回
+                    </button>
+                </view>
+            </view>
+        </block>
+        <view wx:if="{{sharedList.length === 0}}" class="empty-tip">
+            暂无分享出去的设备
+        </view>
+        <button bind:tap="handelCreate">分享</button>
+    </view>
+
+    <!-- 分享给我的设备列表 -->
+    <view class="list-container" wx:if="{{activeTab === 'received'}}">
+        <block wx:for="{{receivedList}}" wx:key="id">
+            <view class="device-item">
+                <view class="device-info">
+                    <text class="device-name">{{item.deviceName}}</text>
+                    <text class="user-name">来自: {{item.userName}}</text>
+                    <text class="status {{item.shareStatus}}">状态: {{statusMap[item.shareStatus]}}</text>
+                </view>
+                <view class="actions">
+                    <button wx:if="{{item.shareStatus === 'pending'}}" class="btn accept" bindtap="handleAccept" data-id="{{item.id}}">
+                        接受
+                    </button>
+                    <button wx:if="{{item.shareStatus === 'pending'}}" class="btn reject" bindtap="handleReject" data-id="{{item.id}}">
+                        拒绝
+                    </button>
+                    <button wx:if="{{item.shareStatus == 'accepted'}}" class="btn reject" bindtap="handleExit" data-id="{{item.id}}">
+                        退出
+                    </button>
+                    <text wx:if="{{item.shareStatus == 'rejected'}}" class="status {{item.shareStatus}}">{{statusMap[item.shareStatus]}}</text>
+                </view>
+            </view>
+        </block>
+        <view wx:if="{{receivedList.length === 0}}" class="empty-tip">
+            暂无接收到的设备分享
+        </view>
+    </view>
+</view>

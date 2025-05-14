@@ -1,0 +1,41 @@
+<view class="container">
+    <form wx:if="canUseUdp">
+        <view class="form-item">
+            <text class="label">步骤1</text>
+            <text class="input" selectable>请在路由器中劫持域名 smartplugconnect.phicomm.com 到 {{host}}
+            </text>
+        </view>
+        <view class="form-item">
+            <text class="label">步骤2</text>
+            <text class="input">长按总开关到WIFI灯快速闪烁进入配网模式
+            </text>
+        </view>
+        <view class="form-item">
+            <text class="label">步骤3</text>
+            <text class="input">连接PHI_PLUG1开头的WIFI，为保证成功率，最好关闭移动数据和关闭常用WIFI的自动连接
+            </text>
+        </view>
+        <view class="form-item">
+            <text class="label">步骤4</text>
+            <text class="input">填写2.4G 的WIFI和密码，成功看到MAC地址后点击绑定
+            </text>
+        </view>
+        <view class="form-item">
+            <text class="label">SSID</text>
+            <input class="input" placeholder="请输入2.4G WIFI名称" data-item="ssid" bindinput="handleInput" value="{{ssid}}"/>
+        </view>
+        <view class="form-item">
+            <text class="label">密码</text>
+            <input class="input" placeholder="请输入WIFI密码" data-item="password" bindinput="handleInput" value="{{password}}"/>
+        </view>
+        <view wx:if="{{resp.status == 200}}">
+            <view class="form-item">
+                <text class="label"> MAC:</text>
+                <input disabled bindinput="handleInput" type="text" placeholder="排插MAC地址" data-item="mac" value="{{resp.result.mac}}"/>
+                <button type="primary" size="mini" bind:tap="bindDevice">绑定</button>
+            </view>
+        </view>
+        <button type="primary" bind:tap="connect">联网</button>
+    </form>
+    <view wx:else>微信版本过低，暂不支持本功能</view>
+</view>

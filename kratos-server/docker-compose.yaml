@@ -1,0 +1,30 @@
+services:
+  dc1server:
+    image: dc1server
+    container_name: dc1server
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+    hostname: dc1server
+    networks:
+      - my-net
+    ports:
+      - "8000:8000"
+    volumes:
+      - /data/dc1/dc1server/config.yaml:/app/config.yaml
+  gateway:
+    image: gateway
+    container_name: gateway
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+    hostname: gateway
+    networks:
+      - my-net
+    ports:
+      - "8002:8002"
+    volumes:
+      - /data/dc1/gateway/config.yaml:/app/config.yaml
+networks:
+  my-net:
+    external: true

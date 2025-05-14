@@ -1,0 +1,18 @@
+<view class="container">
+    <view wx:for="{{plans}}" wx:key="id" class="plan-item">
+        <view class="plan-info" bindtap="navigateToEdit" data-id="{{item.id}}">
+            <view class="plan-name">
+                <text>{{item.name}}</text>
+                <text class="plan-type">{{item.planType === 'PLAN_TYPE_AUTO' ? '自动' : '手动'}}</text>
+            </view>
+            <view class="plan-time">上次执行：{{item.history.length==0?"未运行":item.history[0].execTime + "【"+
+                item.history[0].execResult +"】"
+                }}
+            </view>
+            <view class="plan-time">下次执行：{{item.nextExecTime +(item.enabled?"":"【未启动】")}}</view>
+        </view>
+        <switch wx:if="{{item.planType === 'PLAN_TYPE_AUTO'}}" class="plan-switch" checked="{{item.enabled}}" data-id="{{item.id}}" bindchange="chanagePlan"/>
+        <button type="primary" size="mini" class="plan-switch" bind:tap="execPlan" data-id="{{item.id}}">执行</button>
+    </view>
+    <button type="primary" bind:tap="addNewPlan">新增计划</button>
+</view>

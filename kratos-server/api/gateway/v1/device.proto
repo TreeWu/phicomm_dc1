@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+import "api/gateway/v1/command.proto";
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+package api.gateway.v1;
+
+
+option go_package = "github.com/treewu/phicomm_dc1/api/gateway/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.gateway.v1";
+
+// 设备服务
+service Device {
+  // 更新设备信息
+  rpc UpdateDevice (UpdateDeviceRequest) returns (UpdateDeviceReply) {
+    option (google.api.http) = {
+      post: "v1/device",
+      body: "*"
+    };
+  };
+  // 获取设备列表
+  rpc ListDevice (ListDeviceRequest) returns (ListDeviceReply) {
+    option (google.api.http) = {
+      get: "/v1/device"
+    };
+  };
+  // 绑定设备
+  rpc BindDevice (DeviceConnectReq) returns (DeviceConnectReply) {
+    option (google.api.http) = {
+      post: "/v1/device/binding",
+      body:"*"
+    };
+  };
+}
+
+// 设备连接
+message DeviceConnectReq {
+  string mac = 1;
+  string uuid = 2;
+}
+
+// 设备连接回复
+message DeviceConnectReply {
+  string device_id = 1;
+
+}
+
+// 设备信息
+message Dc1Device {
+  int32 id = 1; // 唯一标识
+  string device_id = 2; // 设备id
+  string user_id = 3; // 用户id
+  string name = 4; // 设备名称
+  string device_type = 5; // 设备类型
+  bool is_online = 6; // 是否在线
+  int32 i = 7;// 电流
+  int32 v = 8; // 电压
+  int32 p = 9; // 功率
+  int32 detal_kwh = 10; // 电量
+  bool recover = 11; // 是否断电恢复
+  string switch1_name = 12; // 开关1名称
+  string switch2_name = 13; // 开关2名称
+  string switch3_name = 14; // 开关3名称
+  int64 last_activated_at = 15; // 最后激活时间
+  int64 last_message_at = 16; // 最后消息时间
+  Dc1Command command = 17; // 命令
+
+}
+
+
+// 更新设备信息
+message UpdateDeviceRequest {
+  optional string device_id = 2 [(validate.rules).string.min_len = 5]; // 设备id
+  optional string name = 4; // 设备名称
+  optional string switch1_name = 12; // 开关1名称
+  optional string switch2_name = 13; // 开关2名称
+  optional string switch3_name = 14;// 开关3名称
+  optional bool recover = 11; // 是否断电恢复
+
+}
+// 更新设备回复
+message UpdateDeviceReply {}
+
+// 获取设备列表
+message ListDeviceRequest {
+  string user_id = 1; // 用户id
+}
+
+// 获取设备列表回复
+message ListDeviceReply {
+  repeated Dc1Device devices = 1; // 设备列表
+}

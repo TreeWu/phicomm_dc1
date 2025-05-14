@@ -1,0 +1,29 @@
+/* pages/devices/deviceInfo.wxss */
+.device-status-online{
+  margin-right: 10rpx;
+  color:green
+}
+.device-status-offline{
+  margin-right: 10rpx;
+  color:grey
+}
+.weui-cells {
+  background-color: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.page {
+  height: 100%;
+}
+.weui-cells:first-child {
+  padding-bottom:10px;
+  margin: 0;
+}
+.dc1-cells .weui-cell {
+  padding: 5px 16px;
+}
+.info-title {
+  background-color: #fff;
+  font-size: medium;
+  border-bottom: 1px snow gray;
+}

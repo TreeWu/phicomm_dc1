@@ -1,0 +1,1 @@
+protoc --proto_path=. --proto_path=./third_party --openapi_out=fq_schema_naming=true,default_response=false:. api/gateway/v1/*.proto

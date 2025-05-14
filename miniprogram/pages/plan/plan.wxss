@@ -1,0 +1,53 @@
+.header {
+  margin-bottom: 30rpx;
+  background-color: #fff;
+}
+
+.header text {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.plan-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 25rpx 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+}
+
+.plan-info {
+  flex: 1;
+}
+
+.plan-name {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+  color: #333;
+}
+
+.plan-type {
+  display: inline-block;
+  font-size: 26rpx;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  margin-left: 15rpx;
+}
+
+.plan-time {
+  display: block;
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+.plan-switch {
+  transform: scale(0.9);
+}

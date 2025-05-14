@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+package api.gateway.v1;
+
+
+option go_package = "github.com/treewu/phicomm_dc1/api/gateway/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.gateway.v1";
+
+// 设备分享服务
+service Share {
+  // 设备分享邀请
+  rpc ShareInvite(ShareInviteReq) returns (ShareInviteReply){
+    option (google.api.http) = {
+      post:"v1/share/invite",
+      body:"*"
+    };
+  };
+  // 设备分享确认
+  rpc ShareConfirm(ShareConfirmReq) returns (ShareConfirmReply){
+    option (google.api.http) = {
+      post:"v1/share/confirm",
+      body:"*"
+    };
+  };
+  // 撤销邀请
+  rpc ShareRevoke(ShareRevokeReq) returns (ShareRevokeReply){
+    option (google.api.http) = {
+      post:"v1/share/revoke",
+      body:"*"
+    };
+  };
+  // 主动退出分享
+  rpc ShareExit(ShareExitReq) returns (ShareExitReply){
+    option (google.api.http) = {
+      post:"v1/share/exit",
+      body:"*"
+    };
+  };
+  rpc GetShareList(GetShareListReq) returns (GetShareListReply){
+    option (google.api.http) = {
+      get:"v1/share/list"
+    };
+  };
+}
+
+enum ShareStatus {
+  undefined = 0;
+  pending = 1;
+  accepted = 2;
+  rejected = 3;
+}
+
+message GetShareListReq{
+
+}
+
+message  GetShareListReply{
+  message ShareInfo{
+    int64 id = 1;
+    string user_code = 2;
+    string device_id = 3;
+    string device_name = 4;
+    string user_name = 5;
+    ShareStatus share_status = 6;
+  }
+  repeated ShareInfo owner_shares = 1; // 自己分享的
+  repeated ShareInfo from_other_shares = 2; // 其他人分享的
+}
+
+message ShareInviteReq{
+  string user_code = 1 [(validate.rules).string.min_len = 1]; // 用户id
+  string device_id = 2 [(validate.rules).string.min_len = 1]; // 设备id
+}
+message ShareInviteReply{}
+message ShareConfirmReq{
+  int64 share_id = 1 [(validate.rules).int64.gt = 0]; // 分享id
+  bool confirm = 2; // 是否同意
+}
+message ShareConfirmReply{}
+message ShareRevokeReq{
+  int64 share_id = 1 [(validate.rules).int64.gt = 0]; // 分享id
+}
+message ShareRevokeReply{}
+message ShareExitReq{
+  int64 share_id = 1 [(validate.rules).int64.gt = 0]; // 分享id
+}
+message ShareExitReply{}

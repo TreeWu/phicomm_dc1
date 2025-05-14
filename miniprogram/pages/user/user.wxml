@@ -1,0 +1,17 @@
+<view class="container">
+    <form>
+        <view class="form-item">
+            <text class="label">用户ID</text>
+            <text selectable>{{userInfo.userCode}}</text>
+        </view>
+        <view class="form-item">
+            <text class="label">用户名</text>
+            <input bindinput="handleInput" type="text" placeholder="请输入昵称" value="{{userInfo.nickname}}"/>
+        </view>
+        <button type="primary" wx:if="{{!hasUserInfo}}" bind:tap="login">登录</button>
+        <view wx:else>
+            <button type="primary" bind:tap="update">更新</button>
+            <button style="margin-top: 30rpx;" bind:tap="handelShare">分享管理</button>
+        </view>
+    </form>
+</view>

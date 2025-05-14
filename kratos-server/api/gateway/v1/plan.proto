@@ -1,0 +1,160 @@
+syntax = "proto3";
+
+package api.gateway.v1;
+
+import "validate/validate.proto";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/treewu/phicomm_dc1/api/gateway/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.gateway.v1";
+
+// 计划服务
+service Plan {
+  // 创建计划
+  rpc CreatePlan (CreatePlanRequest) returns (CreatePlanReply) {
+    option (google.api.http) = {
+      post: "/v1/plan/create",
+      body: "*"
+    };
+  };
+  // 更新计划
+  rpc UpdatePlan (UpdatePlanRequest) returns (UpdatePlanReply) {
+    option (google.api.http) = {
+      post: "/v1/plan/update",
+      body: "*"
+    };
+  };
+  // 删除计划
+  rpc DeletePlan (DeletePlanRequest) returns (DeletePlanReply) {
+    option (google.api.http) = {
+      post: "/v1/plan/delete",
+      body: "*"
+    };
+  };
+
+  // 获取计划
+  rpc GetPlan (GetPlanRequest) returns (GetPlanReply) {
+    option (google.api.http) = {
+      get: "/v1/plan/get"
+    };
+  };
+
+  // 获取计划列表
+  rpc ListPlan (ListPlanRequest) returns (ListPlanReply) {
+    option (google.api.http) = {
+      get: "/v1/plan/list"
+    };
+  };
+
+  // 切换计划开关
+  rpc SwitchPlan (SwitchPlanRequest) returns (SwitchPlanReply) {
+    option (google.api.http) = {
+      post: "/v1/plan/switch",
+      body: "*"
+    };
+  };
+
+  rpc ExecPlan (ExecPlanRequest) returns (ExecPlanReply) {
+    option (google.api.http) = {
+      post: "/v1/plan/exec",
+      body: "*"
+    };
+  };
+}
+enum PlanType {
+  PLAN_TYPE_NONE = 0;  // 无用
+  PLAN_TYPE_AUTO = 1; // 自动执行
+  PLAN_TYPE_MANUAL = 2; // 手动执行
+}
+
+// 创建计划
+message CreatePlanRequest {
+  PlanModel plan = 1; // 计划模型
+}
+
+// 计划模型
+message PlanModel {
+  int64 id = 1; // 唯一标识
+  string name = 2 [(validate.rules).string = {min_len: 1, max_len: 20}]; // 名称
+  PlanType plan_type = 3 ; // 执行类型
+  string cron = 4; // cron表达式
+  bool enabled = 5; // 是否启用
+  repeated PlanDevice devices = 6; // 设备列表
+  string next_exec_time = 8; // 下次执行时间
+  repeated  CommandHistory history = 9;
+}
+
+message CommandHistory {
+  string command_id = 1;
+  string exec_time = 2;
+  string exec_result = 3;
+}
+
+// 计划模型设备开关配置
+message PlanDevice {
+  string device_id = 1; // 设备ID
+  optional int32 switch1 = 2 [(validate.rules).int32 = {in: [0, 1]}]; // 开关1
+  optional int32 switch2 = 3 [(validate.rules).int32 = {in: [0, 1]}]; // 开关2
+  optional int32 switch3 = 4 [(validate.rules).int32 = {in: [0, 1]}];// 开关3
+  optional int32 switch_main = 5 [(validate.rules).int32 = {in: [0, 1]}];// 主开关
+}
+
+// 创建计划恢复
+message CreatePlanReply {
+  int64 id = 1; // 计划ID
+}
+
+// 更新计划
+message UpdatePlanRequest {
+  PlanModel plan = 1;// 计划模型
+}
+// 更新计划回复
+message UpdatePlanReply {
+  int64 id = 1;// 计划ID
+}
+
+// 删除计划
+message DeletePlanRequest {
+  int64 id = 1;// 计划ID
+}
+// 删除计划回复
+message DeletePlanReply {}
+
+// 获取计划
+message GetPlanRequest {
+  int64 id = 1;
+}
+// 获取计划回复
+message GetPlanReply {
+  PlanModel plan = 1; // 计划模型
+}
+
+// 获取计划列表
+message ListPlanRequest {
+}
+// 获取计划列表回复
+message ListPlanReply {
+  repeated PlanModel plans = 1; // 计划列表
+}
+
+// 切换计划开关
+message SwitchPlanRequest {
+  int64 id = 1; // 计划ID
+  bool   enable = 2; // 开关
+}
+
+// 切换计划开关回复
+message SwitchPlanReply {
+  PlanModel plan = 1; // 计划模型
+}
+
+// 执行计划
+message ExecPlanRequest {
+  int64 id = 1; // 计划ID
+}
+
+// 执行计划回复
+message ExecPlanReply {
+  string message = 1;
+}

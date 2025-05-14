@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package api.gateway.v1;
+import "google/api/annotations.proto";
+
+option go_package = "github.com/treewu/phicomm_dc1/api/gateway/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.gateway.v1";
+
+// 微信服务
+service Wechat {
+  rpc SystemInfo (SystemInfoReq) returns (SystemInfoResp){
+    option (google.api.http) = {
+      get:"v1/wechat/system_info"
+    };
+  };
+  rpc JsCode2Session (JsCode2SessionReq) returns (JsCode2SessionReply){
+    option (google.api.http) = {
+      get:"v1/wechat/miniapp/jscode2session"
+    };
+  };
+  rpc UpdateUser (UpdateUserReq) returns (UpdateUserReply){
+    option (google.api.http) = {
+      post:"v1/wechat/miniapp/update_user",
+      body:"*"
+    };
+  };
+  rpc UserInfo (UserInfoReq) returns (UserInfoReply){
+    option (google.api.http) = {
+      get:"v1/wechat/miniapp/user_info"
+    };
+  };
+  rpc CheckHost(CheckHostReq) returns (CheckHostReq){
+    option (google.api.http) = {
+      get:"v1/check_host"
+    };
+  };
+}
+
+message SystemInfoReq{
+
+}
+message SystemInfoResp{
+  int32 flush_interval = 1;
+  string  host = 2;
+}
+
+message Token{
+  string access_token = 1;
+}
+message JsCode2SessionReq{
+  string code = 1;
+}
+message JsCode2SessionReply{
+  string openid = 1;
+  string avatar = 2;
+  string nickname = 3;
+  Token token = 4;
+  string user_code = 5;
+}
+
+message UpdateUserReq{
+  string avatar = 1;
+  string nickname = 2;
+}
+message UpdateUserReply{
+  string avatar = 1;
+  string nickname = 2;
+}
+
+
+message UserInfoReq{
+}
+message UserInfoReply{
+  string avatar = 1;
+  string nickname = 2;
+  string user_code = 3;
+}
+
+message CheckHostReq{
+  string host = 1;
+}
