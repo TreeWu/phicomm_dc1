@@ -13,5 +13,9 @@
             <button type="primary" bind:tap="update">更新</button>
             <button style="margin-top: 30rpx;" bind:tap="handelShare">分享管理</button>
         </view>
+
+        <view style="margin-top: 30rpx;" class="form-item">
+            <image src="../../images/weixin.jpg"></image>
+        </view>
     </form>
 </view>
