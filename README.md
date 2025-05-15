@@ -46,7 +46,7 @@ docker-compose up -d
 ![deviceinfo.png](images/deviceinfo.png)
 ![plan.png](images/plan.png)
 ![planinfo.png](images/planinfo.png)
-![connect.png](images/connect.png)
+![connectwifi.png](images/connectwifi.png)
 ![share.png](images/share.png)
 
 # DC1消息分析
