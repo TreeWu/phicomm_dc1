@@ -36,19 +36,17 @@ docker-compose up -d
 - 先申请小程序 [https://mp.weixin.qq.com/](https://mp.weixin.qq.com/)
 - 下载[小程序开发工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)
 - 导入小程序代码，完善appid等信息
-  ![app.png](images/app.png)
+- <img src="images/app.png" width="300" height="300">
 - 修改服务请求地址phicomm_dc1/miniprogram/utils/config.js
 - 上传并设置体验版本
 
 ## 软件截图
-
-![device.png](images/device.png)
-![deviceinfo.png](images/deviceinfo.png)
-![plan.png](images/plan.png)
-![planinfo.png](images/planinfo.png)
-![connectwifi.png](images/connectwifi.png)
-![share.png](images/share.png)
-
+<img src="images/device.png" width="200" height="400">
+<img src="images/deviceinfo.png" width="200" height="400">
+<img src="images/plan.png" width="200" height="400">
+<img src="images/planinfo.png" width="200" height="400">
+<img src="images/connectwifi.png" width="200" height="400">
+<img src="images/share.png" width="200" height="400">
 # DC1消息分析
 
 ## udp 消息 网络连接
@@ -264,5 +262,4 @@ DC1回复
 ```
 
 # **对我的打赏，是最大的支持**
-
-![weixin](images/weixin.jpg)
+<img src="images/weixin.jpg" width="300" height="300">
