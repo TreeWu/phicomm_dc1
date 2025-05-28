@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    environment {
+        COMPOSE_NAME = 'dc1'
+        COMPOSE_PATH = '/data/dc1/docker-compose.yaml'
+    }
     stages {
         stage('Build Base Images') {
             steps {
@@ -20,6 +23,22 @@ pipeline {
             steps {
                 dir('kratos-server') {
                     sh "docker build -t gateway:latest -f gateway.Dockerfile ."
+                }
+            }
+        }
+        stage('Update Compose') {
+            steps {
+                script {
+                    def timestamp = sh(script: 'date +%s', returnStdout: true).trim()
+                    def token = sh(script: "echo -n 1panel${env.PANEL_TOKEN}${timestamp} | md5sum | awk '{print \$1}'", returnStdout: true).trim()
+                    
+                    sh """
+                    curl --location --request POST "${env.PANEL_URL}/api/v1/containers/compose/operate" \
+                    --header "1Panel-Token: ${token}" \
+                    --header "1Panel-Timestamp: ${timestamp}" \
+                    --header "Content-Type: application/json" \
+                    --data-raw '{"name":"${env.COMPOSE_NAME}","path":"${env.COMPOSE_PATH}","operation":"up","withFile":false}'
+                    """
                 }
             }
         }
