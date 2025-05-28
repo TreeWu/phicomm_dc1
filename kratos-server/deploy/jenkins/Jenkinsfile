@@ -30,10 +30,10 @@ pipeline {
             steps {
                 script {
                     def timestamp = sh(script: 'date +%s', returnStdout: true).trim()
-                    def token = sh(script: "echo -n 1panel${env.1PANEL_TOKEN}${timestamp} | md5sum | awk '{print \$1}'", returnStdout: true).trim()
+                    def token = sh(script: "echo -n 1panel${env.PANEL_TOKEN}${timestamp} | md5sum | awk '{print \$1}'", returnStdout: true).trim()
                     
                     sh """
-                    curl --location --request POST "${env.1PANEL_URL}/api/v1/containers/compose/operate" \
+                    curl --location --request POST "${env.PANEL_URL}/api/v1/containers/compose/operate" \
                     --header "1Panel-Token: ${token}" \
                     --header "1Panel-Timestamp: ${timestamp}" \
                     --header "Content-Type: application/json" \
