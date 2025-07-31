@@ -34,7 +34,8 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	userDeviceDao := data2.NewUserDeviceDao(db, logger)
 	dc1Biz := biz.NewDc1Biz(deviceDao, logger, consumers, confServer, userDeviceDao)
 	dc1serverServer := server.NewDc1Server(confServer, logger, dc1Biz)
-	app := newApp(logger, dc1serverServer)
+	httpServer := server.NewHTTPServer()
+	app := newApp(logger, dc1serverServer, httpServer)
 	return app, func() {
 		cleanup2()
 		cleanup()

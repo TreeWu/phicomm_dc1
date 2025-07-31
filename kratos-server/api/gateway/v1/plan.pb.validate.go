@@ -100,7 +100,7 @@ type CreatePlanRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m CreatePlanRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -290,7 +290,7 @@ type PlanModelMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m PlanModelMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -396,7 +396,7 @@ type CommandHistoryMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m CommandHistoryMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -557,7 +557,7 @@ type PlanDeviceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m PlanDeviceMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -679,7 +679,7 @@ type CreatePlanReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m CreatePlanReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -808,7 +808,7 @@ type UpdatePlanRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m UpdatePlanRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -912,7 +912,7 @@ type UpdatePlanReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m UpdatePlanReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1014,7 +1014,7 @@ type DeletePlanRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m DeletePlanRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1116,7 +1116,7 @@ type DeletePlanReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m DeletePlanReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1218,7 +1218,7 @@ type GetPlanRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m GetPlanRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1346,7 +1346,7 @@ type GetPlanReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m GetPlanReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1446,7 +1446,7 @@ type ListPlanRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ListPlanRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1580,7 +1580,7 @@ type ListPlanReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ListPlanReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1684,7 +1684,7 @@ type SwitchPlanRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SwitchPlanRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1815,7 +1815,7 @@ type SwitchPlanReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SwitchPlanReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1917,7 +1917,7 @@ type ExecPlanRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ExecPlanRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2019,7 +2019,7 @@ type ExecPlanReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ExecPlanReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

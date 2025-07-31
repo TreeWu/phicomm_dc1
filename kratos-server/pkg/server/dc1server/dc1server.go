@@ -13,6 +13,7 @@ type SessionOnlineHandler func(*Session)
 type SessionOfflineHandler func(*Session)
 type Server struct {
 	baseCtx               context.Context
+	cancel                context.CancelFunc
 	lis                   net.Listener
 	network               string
 	address               string
@@ -78,7 +79,7 @@ func NewServer(opts ...ServerOption) *Server {
 }
 
 func (s *Server) Start(ctx context.Context) error {
-	s.baseCtx = ctx
+	s.baseCtx, s.cancel = context.WithCancel(ctx)
 	if s.lis == nil {
 		var err error
 		s.lis, err = net.Listen(s.network, s.address)
@@ -132,5 +133,6 @@ func (s *Server) Stop(ctx context.Context) error {
 		s.lis.Close()
 		s.lis = nil
 	}
+	s.cancel()
 	return nil
 }

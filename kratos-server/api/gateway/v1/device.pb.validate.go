@@ -75,7 +75,7 @@ type DeviceConnectReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m DeviceConnectReqMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -177,7 +177,7 @@ type DeviceConnectReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m DeviceConnectReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -339,7 +339,7 @@ type Dc1DeviceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m Dc1DeviceMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -474,7 +474,7 @@ type UpdateDeviceRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m UpdateDeviceRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -576,7 +576,7 @@ type UpdateDeviceReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m UpdateDeviceReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -680,7 +680,7 @@ type ListDeviceRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ListDeviceRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -816,7 +816,7 @@ type ListDeviceReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ListDeviceReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

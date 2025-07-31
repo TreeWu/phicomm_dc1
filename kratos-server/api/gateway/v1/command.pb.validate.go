@@ -104,7 +104,7 @@ type CommandMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m CommandMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -263,7 +263,7 @@ type Dc1CommandMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m Dc1CommandMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -392,7 +392,7 @@ type CommandReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m CommandReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

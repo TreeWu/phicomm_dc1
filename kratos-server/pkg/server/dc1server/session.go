@@ -2,6 +2,7 @@ package dc1server
 
 import (
 	"bufio"
+	"context"
 	"net"
 	"sync"
 	"sync/atomic"
@@ -19,15 +20,19 @@ type Session struct {
 	server *Server
 	close  atomic.Bool
 	on     sync.Once
+	ctx    context.Context
+	cancel context.CancelFunc
 }
 
 func NewSession(conn net.Conn, server *Server) *Session {
-	return &Session{
+	s := &Session{
 		id:     conn.RemoteAddr().String(),
 		conn:   conn,
 		server: server,
 		send:   make(chan []byte, channelBufSize),
 	}
+	s.ctx, s.cancel = context.WithCancel(server.baseCtx)
+	return s
 }
 
 func (c *Session) Conn() net.Conn {
@@ -59,7 +64,8 @@ func (c *Session) write() {
 				c.server.logger.Errorf("[tcp] write message error: %v", err)
 				return
 			}
-
+		case <-c.ctx.Done():
+			return
 		}
 
 	}
@@ -69,6 +75,7 @@ func (c *Session) Close() {
 	c.on.Do(func() {
 		c.close.Store(true)
 		c.server.unregister <- c
+		c.cancel()
 		err := c.conn.Close()
 		if err != nil {
 			return

@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	kratoszap "github.com/go-kratos/kratos/contrib/log/zap/v2"
+	"github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/treewu/phicomm_dc1/pkg/server/dc1server"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -32,7 +33,7 @@ func init() {
 	flag.StringVar(&flagconf, "conf", "app/dc1server/configs", "config path, eg: -conf config.yaml")
 }
 
-func newApp(logger log.Logger, dc1 *dc1server.Server) *kratos.App {
+func newApp(logger log.Logger, dc1 *dc1server.Server, hs *http.Server) *kratos.App {
 	return kratos.New(
 		kratos.ID(id),
 		kratos.Name(Name),
@@ -41,6 +42,7 @@ func newApp(logger log.Logger, dc1 *dc1server.Server) *kratos.App {
 		kratos.Logger(logger),
 		kratos.Server(
 			dc1,
+			hs,
 		),
 	)
 }

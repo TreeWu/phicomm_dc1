@@ -71,7 +71,7 @@ type GetShareListReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m GetShareListReqMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -239,7 +239,7 @@ type GetShareListReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m GetShareListReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -363,7 +363,7 @@ type ShareInviteReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ShareInviteReqMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -463,7 +463,7 @@ type ShareInviteReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ShareInviteReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -576,7 +576,7 @@ type ShareConfirmReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ShareConfirmReqMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -676,7 +676,7 @@ type ShareConfirmReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ShareConfirmReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -789,7 +789,7 @@ type ShareRevokeReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ShareRevokeReqMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -889,7 +889,7 @@ type ShareRevokeReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ShareRevokeReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -999,7 +999,7 @@ type ShareExitReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ShareExitReqMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1099,7 +1099,7 @@ type ShareExitReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ShareExitReplyMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1211,7 +1211,7 @@ type GetShareListReply_ShareInfoMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m GetShareListReply_ShareInfoMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
+	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
