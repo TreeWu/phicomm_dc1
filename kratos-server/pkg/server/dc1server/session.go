@@ -3,6 +3,7 @@ package dc1server
 import (
 	"bufio"
 	"net"
+	"sync"
 	"sync/atomic"
 )
 
@@ -17,6 +18,7 @@ type Session struct {
 	send   chan []byte
 	server *Server
 	close  atomic.Bool
+	on     sync.Once
 }
 
 func NewSession(conn net.Conn, server *Server) *Session {
@@ -64,10 +66,14 @@ func (c *Session) write() {
 }
 
 func (c *Session) Close() {
-	if !c.close.Load() {
+	c.on.Do(func() {
 		c.close.Store(true)
 		c.server.unregister <- c
-	}
+		err := c.conn.Close()
+		if err != nil {
+			return
+		}
+	})
 }
 
 func (c *Session) Listen() {
